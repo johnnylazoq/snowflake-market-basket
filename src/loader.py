@@ -1,19 +1,17 @@
-"""Runs SQL-files and batc-loads"""
-
 from pathlib import Path
+from io import StringIO
 
 
 def run_sql_file(conn, file_path: str):
     path = Path(file_path)
     sql_script = path.read_text()
 
-    # Kör varje SQL-statement separat
     cursor = conn.cursor()
     try:
-        for statement in sql_script.split(";"):
-            stmt = statement.strip()
-            if stmt:
-                cursor.execute(stmt)
+        # execute_stream cleanly runs multi-statement scripts in Snowflake
+        for cur in conn.execute_stream(StringIO(sql_script)):
+            for _ in cur:
+                pass
     finally:
         cursor.close()
 

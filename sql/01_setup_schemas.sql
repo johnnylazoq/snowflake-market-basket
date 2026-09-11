@@ -1,5 +1,4 @@
-create database if not exists retail_vault;
-use database retail_vault
+CREATE DATABASE IF NOT EXISTS retail_vault;
 
-create schema if not exists raw_vault;
-create schema if not exists informartion_mart;
+CREATE SCHEMA IF NOT EXISTS retail_vault.raw_vault;
+CREATE SCHEMA IF NOT EXISTS retail_vault.information_mart;

@@ -16,18 +16,18 @@ sample_data = [
 def main():
     conn = get_connection()
     try:
-        print("1/4 Sätter upp scheman...")
+        print("1/4 Setting up schemas...")
         run_sql_file(conn, "sql/01_setup_schemas.sql")
 
-        print("2/4 Bygger DDL för Raw Vault...")
+        print("2/4 Creating DDL for Raw Vault...")
         run_sql_file(conn, "sql/02_raw_vault_ddl.sql")
 
-        print("3/4 Laddar staging och populär Vault...")
+        print("3/4 Loading staging data and populating Vault...")
         load_staging_data(conn, sample_data)
         run_sql_file(conn, "sql/04_load_raw_vault.sql")
         run_sql_file(conn, "sql/05_information_mart.sql")
 
-        print("4/4 Hämtar analysresultat:\n")
+        print("4/4 Fetching analysis results:\n")
         df = get_market_basket_results(conn)
         print(df.to_markdown(index=False))
 
