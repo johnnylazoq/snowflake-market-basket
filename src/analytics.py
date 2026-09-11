@@ -1,0 +1,1 @@
+"""Retrieves market basket analysys"""
